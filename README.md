@@ -2,6 +2,13 @@
 
 flowbridge is a lightweight automation bridge between your tools. It exposes a FastAPI webhook that receives an event (for example a new lead as JSON), validates it against a schema, applies configurable transform and mapping rules defined in a YAML config, and dispatches the result to one or more pluggable actions: a local SQLite store, an outgoing webhook (Slack or Discord style), and a CSV file. The point is simple: connect tools through an API and let the data move on its own.
 
+## Example run
+
+
+
+
+
+
 ## Features
 
 - FastAPI webhook endpoint (`POST /webhook`) with automatic schema validation via Pydantic.
