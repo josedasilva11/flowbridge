@@ -1,0 +1,37 @@
+# flowbridge configuration.
+# Defines how incoming fields are mapped and transformed, and which actions run.
+
+# Map incoming field names (left) to canonical field names (right).
+mapping:
+  full_name: name
+  email_address: email
+  company_name: company
+  source: source
+
+# Transforms applied to canonical fields, in order. Available transforms:
+# strip, lower, upper, title. Use 'default' to fill missing or empty values.
+transforms:
+  name:
+    - strip
+    - title
+  email:
+    - strip
+    - lower
+  company:
+    - strip
+  source:
+    - strip
+    - lower
+    - default: web
+
+# Actions run in order. Each has a type matching a registered action.
+actions:
+  - type: sqlite
+    db_path: flowbridge.db
+    table: leads
+  - type: outgoing_webhook
+    # The URL is read from the OUTGOING_WEBHOOK_URL environment variable,
+    # never hardcoded here.
+    template: "New lead: {name} <{email}> from {company} (source: {source})"
+  - type: csv
+    file_path: leads.csv
