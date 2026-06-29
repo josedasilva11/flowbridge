@@ -4,9 +4,34 @@ flowbridge is a lightweight automation bridge between your tools. It exposes a F
 
 ## Example run
 
+```bash
+python -m flowbridge.demo
+```
 
+```
+Incoming lead:
+{
+  "full_name": "  ada lovelace ",
+  "email_address": "Ada.Lovelace@EXAMPLE.com  ",
+  "company_name": "Analytical Engines Ltd",
+  "source": "  LinkedIn "
+}
 
+Processed (canonical) lead:
+{
+  "name": "Ada Lovelace",
+  "email": "ada.lovelace@example.com",
+  "company": "Analytical Engines Ltd",
+  "source": "linkedin"
+}
 
+Action results:
+  - {"action": "sqlite", "status": "ok", "db_path": "flowbridge.db", "table": "leads"}
+  - {"action": "outgoing_webhook", "status": "skipped", "reason": "OUTGOING_WEBHOOK_URL not set"}
+  - {"action": "csv", "status": "ok", "file_path": "leads.csv"}
+
+Done. Check flowbridge.db and leads.csv for the stored lead.
+```
 
 
 ## Features
